@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    App\Repository\UserRepository:
+        factory: doctrine.orm.entity_manager:getRepository
+        arguments: ['App\Entity\User']
+
+    App\Repository\UrlRepository:
+        factory: doctrine.orm.entity_manager:getRepository
+        arguments: [ 'App\Entity\Url' ]
+
+    app.session_repository:
+        class: App\Repository\RedisSessionRepository
+        autowire: true
+        public: true
+    App\Security\SessionRepository: '@app.session_repository'
